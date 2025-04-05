@@ -1,0 +1,17 @@
+- name: Deploy app using Docker
+  hosts: all
+  become: yes
+  tasks:
+    - name: Pull Docker image
+      docker_image:
+        name: papersocial/hello
+        source: pull
+
+    - name: Run Docker container
+      docker_container:
+        name: paper-social-app
+        image: papersocial/hello
+        state: started
+        restart_policy: always
+        ports:
+          - "80:3000"
